@@ -1,0 +1,138 @@
+### ── VARIABLES ────────────────────────────────────────────────────────────
+@bff    = http://localhost:8080
+@auth   = http://localhost:8081
+@book   = http://localhost:8082
+@author = http://localhost:8083
+
+@token = 
+
+### AUTH — ms-auth :8081
+### ══════════════════════════════════════════════════════════════════════════
+
+### 1. Registrar usuario
+POST {{auth}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### 2. Login 
+POST {{auth}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+
+### ══════════════════════════════════════════════════════════════════════════
+### AUTORES — BFF :8080
+### ══════════════════════════════════════════════════════════════════════════
+
+### 3. Listar autores
+GET {{bff}}/api/library/authors
+Authorization: Bearer {{token}}
+
+### 4. Obtener autor por id
+GET {{bff}}/api/library/authors/1
+Authorization: Bearer {{token}}
+
+### 5. Crear autor
+POST {{bff}}/api/library/authors
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Pablo Neruda",
+  "nationality": "Chilena",
+  "birthYear": 1904
+}
+
+### 6. Eliminar autor 
+DELETE {{bff}}/api/library/authors/
+Authorization: Bearer {{token}}
+
+### ══════════════════════════════════════════════════════════════════════════
+### LIBROS — BFF :8080
+### ══════════════════════════════════════════════════════════════════════════
+
+### 7. Listar libros (con autor compuesto)
+GET {{bff}}/api/library/books
+Authorization: Bearer {{token}}
+
+### 8. Filtrar por título
+GET {{bff}}/api/library/books?title=Cien años de soledad
+Authorization: Bearer {{token}}
+
+### 9. Filtrar por categoría
+GET {{bff}}/api/library/books?category=Novela
+Authorization: Bearer {{token}}
+
+### 10. Obtener libro por id (con autor compuesto)
+GET {{bff}}/api/library/books/a1b2c3d4-0001-0000-0000-000000000001
+Authorization: Bearer {{token}}
+
+### 11. Crear libro
+POST {{bff}}/api/library/books
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "El otoño del patriarca",
+  "authorId": 1,
+  "category": "Novela",
+  "isbn": "978-0-063-011418-7"
+}
+
+### 12. Actualizar libro
+PUT {{bff}}/api/library/books/a1b2c3d4-0002-0000-0000-000000000002
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Cien años de soledad",
+  "authorId": 1,
+  "category": "Novela",
+  "isbn": "978-0-063-011418-7"
+}
+
+### 13. Eliminar libro (Seeded Book 4)
+DELETE {{bff}}/api/library/books/a1b2c3d4-0004-0000-0000-000000000004
+Authorization: Bearer {{token}}
+
+### 14. Listar todos los libros en BFF sin componer autor (opción excludeAuthor=true)
+GET {{bff}}/api/library/books?excludeAuthor=true
+Authorization: Bearer {{token}}
+
+### 15. Sin token → debe devolver 401 Unauthorized
+GET {{bff}}/api/library/books
+
+### ══════════════════════════════════════════════════════════════════════════
+### PRUEBAS DE RESILIENCIA Y CONSUMO DIRECTO
+### ══════════════════════════════════════════════════════════════════════════
+
+### 16. Crear libro con autor inexistente (demostración de resiliencia)
+POST {{bff}}/api/library/books
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Cien años de soledad (Sin Autor)",
+  "authorId": 999,
+  "category": "Novela",
+  "isbn": "978-0-06-088328-X"
+}
+
+### 17. Listar libros en BFF (comprobando tolerancia a fallos)
+# El libro con authorId: 999 se listará con "author": null sin romper el BFF.
+GET {{bff}}/api/library/books
+Authorization: Bearer {{token}}
+
+### 18. Listar libros directamente en ms-book
+GET {{book}}/api/books
+
+### 19. Consultar autor directamente en ms-author
+GET {{author}}/api/authors/1

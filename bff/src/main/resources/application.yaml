@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: bff
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWK_SET_URI:http://localhost:8081/.well-known/jwks.json}
+
+services:
+  book:
+    url: ${BOOK_SERVICE_URL:http://localhost:8082}
+  author:
+    url: ${AUTHOR_SERVICE_URL:http://localhost:8083}
+
+server:
+  port: 8080

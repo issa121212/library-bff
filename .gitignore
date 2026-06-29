@@ -1,0 +1,14 @@
+.gradle/
+build/
+bin/
+out/
+.vscode/tasks.json
+.vscode/launch.json
+*.class
+*.log
+*.jar
+*.war
+.DS_Store
+Thumbs.db
+*.drawio
+
