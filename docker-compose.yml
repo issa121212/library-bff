@@ -117,6 +117,12 @@ services:
       JWK_SET_URI: http://ms-auth:8081/.well-known/jwks.json
       BOOK_SERVICE_URL: http://ms-book:8082
       AUTHOR_SERVICE_URL: http://ms-author:8083
+      LOAN_SERVICE_URL: http://ms-loan:8084
+      PENALTY_SERVICE_URL: http://ms-penalty:8085
+      INVENTORY_SERVICE_URL: http://ms-inventory:8086
+      RESERVATION_SERVICE_URL: http://ms-reservation:8087
+      NOTIFICATION_SERVICE_URL: http://ms-notification:8088
+      REVIEW_SERVICE_URL: http://ms-review:8089
     depends_on:
       ms-auth:
         condition: service_started
@@ -124,8 +130,237 @@ services:
         condition: service_started
       ms-author:
         condition: service_started
+      ms-loan:
+        condition: service_started
+      ms-penalty:
+        condition: service_started
+      ms-inventory:
+        condition: service_started
+      ms-reservation:
+        condition: service_started
+      ms-notification:
+        condition: service_started
+      ms-review:
+        condition: service_started
+
+  # ─── ms-loan ───────────────────────────────────────────────────────────────
+  postgres-loan:
+    image: postgres:17
+    container_name: postgres-loan
+    environment:
+      POSTGRES_DB: loan_db
+      POSTGRES_USER: loan_user
+      POSTGRES_PASSWORD: loan_pass
+    ports:
+      - "5447:5432"
+    volumes:
+      - postgres-loan-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U loan_user -d loan_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ms-loan:
+    build: ./ms-loan
+    container_name: ms-loan
+    ports:
+      - "8084:8084"
+    environment:
+      DB_HOST: postgres-loan
+      DB_PORT: 5432
+      DB_NAME: loan_db
+      DB_USERNAME: loan_user
+      DB_PASSWORD: loan_pass
+    depends_on:
+      postgres-loan:
+        condition: service_healthy
+      ms-auth:
+        condition: service_started
+
+  # ─── ms-penalty ────────────────────────────────────────────────────────────
+  postgres-penalty:
+    image: postgres:17
+    container_name: postgres-penalty
+    environment:
+      POSTGRES_DB: penalty_db
+      POSTGRES_USER: penalty_user
+      POSTGRES_PASSWORD: penalty_pass
+    ports:
+      - "5448:5432"
+    volumes:
+      - postgres-penalty-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U penalty_user -d penalty_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ms-penalty:
+    build: ./ms-penalty
+    container_name: ms-penalty
+    ports:
+      - "8085:8085"
+    environment:
+      DB_HOST: postgres-penalty
+      DB_PORT: 5432
+      DB_NAME: penalty_db
+      DB_USERNAME: penalty_user
+      DB_PASSWORD: penalty_pass
+    depends_on:
+      postgres-penalty:
+        condition: service_healthy
+      ms-auth:
+        condition: service_started
+
+  # ─── ms-inventory ──────────────────────────────────────────────────────────
+  postgres-inventory:
+    image: postgres:17
+    container_name: postgres-inventory
+    environment:
+      POSTGRES_DB: inventory_db
+      POSTGRES_USER: inventory_user
+      POSTGRES_PASSWORD: inventory_pass
+    ports:
+      - "5449:5432"
+    volumes:
+      - postgres-inventory-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inventory_user -d inventory_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ms-inventory:
+    build: ./ms-inventory
+    container_name: ms-inventory
+    ports:
+      - "8086:8086"
+    environment:
+      DB_HOST: postgres-inventory
+      DB_PORT: 5432
+      DB_NAME: inventory_db
+      DB_USERNAME: inventory_user
+      DB_PASSWORD: inventory_pass
+    depends_on:
+      postgres-inventory:
+        condition: service_healthy
+      ms-auth:
+        condition: service_started
+
+  # ─── ms-reservation ────────────────────────────────────────────────────────
+  postgres-reservation:
+    image: postgres:17
+    container_name: postgres-reservation
+    environment:
+      POSTGRES_DB: reservation_db
+      POSTGRES_USER: reservation_user
+      POSTGRES_PASSWORD: reservation_pass
+    ports:
+      - "5450:5432"
+    volumes:
+      - postgres-reservation-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U reservation_user -d reservation_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ms-reservation:
+    build: ./ms-reservation
+    container_name: ms-reservation
+    ports:
+      - "8087:8087"
+    environment:
+      DB_HOST: postgres-reservation
+      DB_PORT: 5432
+      DB_NAME: reservation_db
+      DB_USERNAME: reservation_user
+      DB_PASSWORD: reservation_pass
+    depends_on:
+      postgres-reservation:
+        condition: service_healthy
+      ms-auth:
+        condition: service_started
+
+  # ─── ms-notification ───────────────────────────────────────────────────────
+  postgres-notification:
+    image: postgres:17
+    container_name: postgres-notification
+    environment:
+      POSTGRES_DB: notification_db
+      POSTGRES_USER: notification_user
+      POSTGRES_PASSWORD: notification_pass
+    ports:
+      - "5451:5432"
+    volumes:
+      - postgres-notification-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U notification_user -d notification_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ms-notification:
+    build: ./ms-notification
+    container_name: ms-notification
+    ports:
+      - "8088:8088"
+    environment:
+      DB_HOST: postgres-notification
+      DB_PORT: 5432
+      DB_NAME: notification_db
+      DB_USERNAME: notification_user
+      DB_PASSWORD: notification_pass
+    depends_on:
+      postgres-notification:
+        condition: service_healthy
+      ms-auth:
+        condition: service_started
+
+  # ─── ms-review ─────────────────────────────────────────────────────────────
+  postgres-review:
+    image: postgres:17
+    container_name: postgres-review
+    environment:
+      POSTGRES_DB: review_db
+      POSTGRES_USER: review_user
+      POSTGRES_PASSWORD: review_pass
+    ports:
+      - "5452:5432"
+    volumes:
+      - postgres-review-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U review_user -d review_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ms-review:
+    build: ./ms-review
+    container_name: ms-review
+    ports:
+      - "8089:8089"
+    environment:
+      DB_HOST: postgres-review
+      DB_PORT: 5432
+      DB_NAME: review_db
+      DB_USERNAME: review_user
+      DB_PASSWORD: review_pass
+    depends_on:
+      postgres-review:
+        condition: service_healthy
+      ms-auth:
+        condition: service_started
 
 volumes:
   postgres-auth-data:
   postgres-book-data:
   postgres-author-data:
+  postgres-loan-data:
+  postgres-penalty-data:
+  postgres-inventory-data:
+  postgres-reservation-data:
+  postgres-notification-data:
+  postgres-review-data:
+

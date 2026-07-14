@@ -1,11 +1,11 @@
 {
   "info": {
-    "_postman_id": "5723ed6a-9c8c-45e8-b33e-b3a91b612546",
+    "_postman_id": "59a7ed03-c84a-47ac-91c3-d74e4d205587",
     "name": "BFF API",
     "description": "Backend for Frontend - API principal de la biblioteca",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53125257",
-    "_collection_link": "https://go.postman.co/collection/53125257-5723ed6a-9c8c-45e8-b33e-b3a91b612546?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53125257-59a7ed03-c84a-47ac-91c3-d74e4d205587?source=collection_link"
   },
   "item": [
     {
@@ -44,7 +44,7 @@
                           "variable": [
                             {
                               "key": "id",
-                              "value": "f9710131-806d-845a-b8b2-cac2552e1aa4"
+                              "value": "434be70d-a40d-e81f-46f3-40a1d1ba0164"
                             }
                           ]
                         }
@@ -79,7 +79,7 @@
                               "variable": [
                                 {
                                   "key": "id",
-                                  "value": "f9710131-806d-845a-b8b2-cac2552e1aa4"
+                                  "value": "434be70d-a40d-e81f-46f3-40a1d1ba0164"
                                 }
                               ]
                             }
@@ -94,7 +94,7 @@
                             }
                           ],
                           "cookie": [],
-                          "body": "{\n  \"id\": \"7e9fb6e6-edfa-8fbc-c06e-88ec739d8b0f\",\n  \"title\": \"string\",\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"author\": {\n    \"id\": 2056,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 214\n  }\n}"
+                          "body": "{\n  \"id\": \"0da6a330-4771-46ee-b605-cc487d5d8c77\",\n  \"title\": \"string\",\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"author\": {\n    \"id\": 6068,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 5323\n  }\n}"
                         }
                       ]
                     },
@@ -114,7 +114,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n  \"authorId\": 381,\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"title\": \"string\"\n}",
+                          "raw": "{\n  \"authorId\": 9131,\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"title\": \"string\"\n}",
                           "options": {
                             "raw": {
                               "headerFamily": "json",
@@ -136,7 +136,7 @@
                           "variable": [
                             {
                               "key": "id",
-                              "value": "f9710131-806d-845a-b8b2-cac2552e1aa4"
+                              "value": "434be70d-a40d-e81f-46f3-40a1d1ba0164"
                             }
                           ]
                         }
@@ -163,7 +163,7 @@
                             ],
                             "body": {
                               "mode": "raw",
-                              "raw": "{\n  \"authorId\": 381,\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"title\": \"string\"\n}",
+                              "raw": "{\n  \"authorId\": 9131,\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"title\": \"string\"\n}",
                               "options": {
                                 "raw": {
                                   "headerFamily": "json",
@@ -185,7 +185,7 @@
                               "variable": [
                                 {
                                   "key": "id",
-                                  "value": "f9710131-806d-845a-b8b2-cac2552e1aa4"
+                                  "value": "434be70d-a40d-e81f-46f3-40a1d1ba0164"
                                 }
                               ]
                             }
@@ -200,7 +200,7 @@
                             }
                           ],
                           "cookie": [],
-                          "body": "{\n  \"id\": \"7e9fb6e6-edfa-8fbc-c06e-88ec739d8b0f\",\n  \"title\": \"string\",\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"author\": {\n    \"id\": 2056,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 214\n  }\n}"
+                          "body": "{\n  \"id\": \"0da6a330-4771-46ee-b605-cc487d5d8c77\",\n  \"title\": \"string\",\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"author\": {\n    \"id\": 6068,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 5323\n  }\n}"
                         }
                       ]
                     },
@@ -223,7 +223,7 @@
                           "variable": [
                             {
                               "key": "id",
-                              "value": "f9710131-806d-845a-b8b2-cac2552e1aa4"
+                              "value": "434be70d-a40d-e81f-46f3-40a1d1ba0164"
                             }
                           ]
                         }
@@ -254,7 +254,7 @@
                               "variable": [
                                 {
                                   "key": "id",
-                                  "value": "f9710131-806d-845a-b8b2-cac2552e1aa4"
+                                  "value": "434be70d-a40d-e81f-46f3-40a1d1ba0164"
                                 }
                               ]
                             }
@@ -358,7 +358,7 @@
                         }
                       ],
                       "cookie": [],
-                      "body": "[\n  {\n    \"id\": \"61423e16-9e13-2867-2316-dbed2c61dd60\",\n    \"title\": \"string\",\n    \"category\": \"string\",\n    \"isbn\": \"string\",\n    \"author\": {\n      \"id\": 9612,\n      \"name\": \"string\",\n      \"nationality\": \"string\",\n      \"birthYear\": 5102\n    }\n  },\n  {\n    \"id\": \"92ad7824-2791-32b4-032a-d95fbc1bf26d\",\n    \"title\": \"string\",\n    \"category\": \"string\",\n    \"isbn\": \"string\",\n    \"author\": {\n      \"id\": 235,\n      \"name\": \"string\",\n      \"nationality\": \"string\",\n      \"birthYear\": 7916\n    }\n  }\n]"
+                      "body": "[\n  {\n    \"id\": \"d15b68fa-3d35-d10c-66ff-8c3f4ccafb5e\",\n    \"title\": \"string\",\n    \"category\": \"string\",\n    \"isbn\": \"string\",\n    \"author\": {\n      \"id\": 6622,\n      \"name\": \"string\",\n      \"nationality\": \"string\",\n      \"birthYear\": 8176\n    }\n  },\n  {\n    \"id\": \"18e12665-58f3-d209-2bf7-5416e4639a2b\",\n    \"title\": \"string\",\n    \"category\": \"string\",\n    \"isbn\": \"string\",\n    \"author\": {\n      \"id\": 9014,\n      \"name\": \"string\",\n      \"nationality\": \"string\",\n      \"birthYear\": 7639\n    }\n  }\n]"
                     }
                   ]
                 },
@@ -378,7 +378,7 @@
                     ],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n  \"authorId\": 381,\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"title\": \"string\"\n}",
+                      "raw": "{\n  \"authorId\": 9131,\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"title\": \"string\"\n}",
                       "options": {
                         "raw": {
                           "headerFamily": "json",
@@ -420,7 +420,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n  \"authorId\": 381,\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"title\": \"string\"\n}",
+                          "raw": "{\n  \"authorId\": 9131,\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"title\": \"string\"\n}",
                           "options": {
                             "raw": {
                               "headerFamily": "json",
@@ -450,7 +450,7 @@
                         }
                       ],
                       "cookie": [],
-                      "body": "{\n  \"id\": \"7e9fb6e6-edfa-8fbc-c06e-88ec739d8b0f\",\n  \"title\": \"string\",\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"author\": {\n    \"id\": 2056,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 214\n  }\n}"
+                      "body": "{\n  \"id\": \"0da6a330-4771-46ee-b605-cc487d5d8c77\",\n  \"title\": \"string\",\n  \"category\": \"string\",\n  \"isbn\": \"string\",\n  \"author\": {\n    \"id\": 6068,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 5323\n  }\n}"
                     }
                   ]
                 }
@@ -486,7 +486,7 @@
                           "variable": [
                             {
                               "key": "id",
-                              "value": "9987"
+                              "value": "7427"
                             }
                           ]
                         }
@@ -521,7 +521,7 @@
                               "variable": [
                                 {
                                   "key": "id",
-                                  "value": "9987"
+                                  "value": "7427"
                                 }
                               ]
                             }
@@ -536,7 +536,7 @@
                             }
                           ],
                           "cookie": [],
-                          "body": "{\n  \"id\": 908,\n  \"name\": \"string\",\n  \"nationality\": \"string\",\n  \"birthYear\": 5954\n}"
+                          "body": "{\n  \"id\": 3198,\n  \"name\": \"string\",\n  \"nationality\": \"string\",\n  \"birthYear\": 4117\n}"
                         }
                       ]
                     },
@@ -556,7 +556,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n  \"birthYear\": 9593,\n  \"name\": \"string\",\n  \"nationality\": \"string\"\n}",
+                          "raw": "{\n  \"birthYear\": 6006,\n  \"name\": \"string\",\n  \"nationality\": \"string\"\n}",
                           "options": {
                             "raw": {
                               "headerFamily": "json",
@@ -578,7 +578,7 @@
                           "variable": [
                             {
                               "key": "id",
-                              "value": "9987"
+                              "value": "7427"
                             }
                           ]
                         }
@@ -605,7 +605,7 @@
                             ],
                             "body": {
                               "mode": "raw",
-                              "raw": "{\n  \"birthYear\": 9593,\n  \"name\": \"string\",\n  \"nationality\": \"string\"\n}",
+                              "raw": "{\n  \"birthYear\": 6006,\n  \"name\": \"string\",\n  \"nationality\": \"string\"\n}",
                               "options": {
                                 "raw": {
                                   "headerFamily": "json",
@@ -627,7 +627,7 @@
                               "variable": [
                                 {
                                   "key": "id",
-                                  "value": "9987"
+                                  "value": "7427"
                                 }
                               ]
                             }
@@ -642,7 +642,7 @@
                             }
                           ],
                           "cookie": [],
-                          "body": "{\n  \"id\": 908,\n  \"name\": \"string\",\n  \"nationality\": \"string\",\n  \"birthYear\": 5954\n}"
+                          "body": "{\n  \"id\": 3198,\n  \"name\": \"string\",\n  \"nationality\": \"string\",\n  \"birthYear\": 4117\n}"
                         }
                       ]
                     },
@@ -665,7 +665,7 @@
                           "variable": [
                             {
                               "key": "id",
-                              "value": "9987"
+                              "value": "7427"
                             }
                           ]
                         }
@@ -696,7 +696,7 @@
                               "variable": [
                                 {
                                   "key": "id",
-                                  "value": "9987"
+                                  "value": "7427"
                                 }
                               ]
                             }
@@ -772,7 +772,7 @@
                         }
                       ],
                       "cookie": [],
-                      "body": "[\n  {\n    \"id\": 9795,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 3134\n  },\n  {\n    \"id\": 7525,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 2734\n  }\n]"
+                      "body": "[\n  {\n    \"id\": 2227,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 7689\n  },\n  {\n    \"id\": 6816,\n    \"name\": \"string\",\n    \"nationality\": \"string\",\n    \"birthYear\": 3822\n  }\n]"
                     }
                   ]
                 },
@@ -792,7 +792,7 @@
                     ],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n  \"birthYear\": 9593,\n  \"name\": \"string\",\n  \"nationality\": \"string\"\n}",
+                      "raw": "{\n  \"birthYear\": 6006,\n  \"name\": \"string\",\n  \"nationality\": \"string\"\n}",
                       "options": {
                         "raw": {
                           "headerFamily": "json",
@@ -834,7 +834,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n  \"birthYear\": 9593,\n  \"name\": \"string\",\n  \"nationality\": \"string\"\n}",
+                          "raw": "{\n  \"birthYear\": 6006,\n  \"name\": \"string\",\n  \"nationality\": \"string\"\n}",
                           "options": {
                             "raw": {
                               "headerFamily": "json",
@@ -864,283 +864,7 @@
                         }
                       ],
                       "cookie": [],
-                      "body": "{\n  \"id\": 908,\n  \"name\": \"string\",\n  \"nationality\": \"string\",\n  \"birthYear\": 5954\n}"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "auth",
-      "item": [
-        {
-          "name": "auth",
-          "item": [
-            {
-              "name": "register",
-              "item": [
-                {
-                  "name": "register",
-                  "request": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "*/*"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"password\": \"string\",\n  \"username\": \"string\"\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/api/auth/register",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "api",
-                        "auth",
-                        "register"
-                      ]
-                    }
-                  },
-                  "response": [
-                    {
-                      "name": "OK",
-                      "originalRequest": {
-                        "method": "POST",
-                        "header": [
-                          {
-                            "key": "Content-Type",
-                            "value": "application/json"
-                          },
-                          {
-                            "key": "Accept",
-                            "value": "*/*"
-                          },
-                          {
-                            "description": "Added as a part of security scheme: bearer",
-                            "key": "Authorization",
-                            "value": "Bearer <token>"
-                          }
-                        ],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "{\n  \"password\": \"string\",\n  \"username\": \"string\"\n}",
-                          "options": {
-                            "raw": {
-                              "headerFamily": "json",
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/api/auth/register",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "auth",
-                            "register"
-                          ]
-                        }
-                      },
-                      "status": "OK",
-                      "code": 200,
-                      "_postman_previewlanguage": "text",
-                      "header": [
-                        {
-                          "key": "Content-Type",
-                          "value": "*/*"
-                        }
-                      ],
-                      "cookie": [],
-                      "body": "{\n  \"accessToken\": \"string\"\n}"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "login",
-              "item": [
-                {
-                  "name": "login",
-                  "request": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "*/*"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"password\": \"string\",\n  \"username\": \"string\"\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/api/auth/login",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "api",
-                        "auth",
-                        "login"
-                      ]
-                    }
-                  },
-                  "response": [
-                    {
-                      "name": "OK",
-                      "originalRequest": {
-                        "method": "POST",
-                        "header": [
-                          {
-                            "key": "Content-Type",
-                            "value": "application/json"
-                          },
-                          {
-                            "key": "Accept",
-                            "value": "*/*"
-                          },
-                          {
-                            "description": "Added as a part of security scheme: bearer",
-                            "key": "Authorization",
-                            "value": "Bearer <token>"
-                          }
-                        ],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "{\n  \"password\": \"string\",\n  \"username\": \"string\"\n}",
-                          "options": {
-                            "raw": {
-                              "headerFamily": "json",
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/api/auth/login",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "auth",
-                            "login"
-                          ]
-                        }
-                      },
-                      "status": "OK",
-                      "code": 200,
-                      "_postman_previewlanguage": "text",
-                      "header": [
-                        {
-                          "key": "Content-Type",
-                          "value": "*/*"
-                        }
-                      ],
-                      "cookie": [],
-                      "body": "{\n  \"accessToken\": \"string\"\n}"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": ".well-known",
-          "item": [
-            {
-              "name": "jwks.json",
-              "item": [
-                {
-                  "name": "jwks",
-                  "request": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/.well-known/jwks.json",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        ".well-known",
-                        "jwks.json"
-                      ]
-                    }
-                  },
-                  "response": [
-                    {
-                      "name": "OK",
-                      "originalRequest": {
-                        "method": "GET",
-                        "header": [
-                          {
-                            "key": "Accept",
-                            "value": "application/json"
-                          },
-                          {
-                            "description": "Added as a part of security scheme: bearer",
-                            "key": "Authorization",
-                            "value": "Bearer <token>"
-                          }
-                        ],
-                        "url": {
-                          "raw": "{{baseUrl}}/.well-known/jwks.json",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            ".well-known",
-                            "jwks.json"
-                          ]
-                        }
-                      },
-                      "status": "OK",
-                      "code": 200,
-                      "_postman_previewlanguage": "json",
-                      "header": [
-                        {
-                          "key": "Content-Type",
-                          "value": "application/json"
-                        }
-                      ],
-                      "cookie": [],
-                      "body": "{\n  \"key_0\": 1074\n}"
+                      "body": "{\n  \"id\": 3198,\n  \"name\": \"string\",\n  \"nationality\": \"string\",\n  \"birthYear\": 4117\n}"
                     }
                   ]
                 }

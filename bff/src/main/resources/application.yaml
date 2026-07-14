@@ -12,6 +12,19 @@ services:
     url: ${BOOK_SERVICE_URL:http://localhost:8082}
   author:
     url: ${AUTHOR_SERVICE_URL:http://localhost:8083}
+  loan:
+    url: ${LOAN_SERVICE_URL:http://localhost:8084}
+  penalty:
+    url: ${PENALTY_SERVICE_URL:http://localhost:8085}
+  inventory:
+    url: ${INVENTORY_SERVICE_URL:http://localhost:8086}
+  reservation:
+    url: ${RESERVATION_SERVICE_URL:http://localhost:8087}
+  notification:
+    url: ${NOTIFICATION_SERVICE_URL:http://localhost:8088}
+  review:
+    url: ${REVIEW_SERVICE_URL:http://localhost:8089}
 
 server:
   port: 8080
+
