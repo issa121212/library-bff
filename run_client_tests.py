@@ -143,6 +143,14 @@ print("\n[TEST 12] Listing Penalties...")
 status, resp = send_request("GET", "/api/library/penaltys", token=token)
 print(f"Status: {status} | Response: {resp}")
 
+# 12b. Pay Penalty
+penalty_id = penalty_resp.get("id") if isinstance(penalty_resp, dict) else None
+if penalty_id:
+    print(f"\n[TEST 12b] Paying Penalty {penalty_id}...")
+    status, pay_resp = send_request("POST", f"/api/library/penaltys/{penalty_id}/pay", None, token)
+    print(f"Status: {status} | Response: {pay_resp}")
+
+
 # 13. Create Reservation
 print("\n[TEST 13] Creating Reservation...")
 status, res_resp = send_request("POST", "/api/library/reservations", {

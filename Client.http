@@ -53,7 +53,7 @@ Authorization: Bearer {{token}}
 }
 
 ### 6. Eliminar autor 
-DELETE {{bff}}/api/library/authors/
+DELETE {{bff}}/api/library/authors/1
 Authorization: Bearer {{token}}
 
 ### ══════════════════════════════════════════════════════════════════════════
@@ -190,6 +190,10 @@ Authorization: Bearer {{token}}
   "username": "admin",
   "amount": 2500.0
 }
+
+### 25b. Multas - Pagar multa
+POST {{bff}}/api/library/penaltys/d2883a66-66af-4ee7-9559-f7806e6d5721/pay
+Authorization: Bearer {{token}}
 
 ### 26. Reservas - Listar todas las reservas
 GET {{bff}}/api/library/reservations

@@ -35,8 +35,24 @@ public class PenaltyServiceImpl implements PenaltyService {
         return client.update(id, request);
     }
 
+    /**
+     * Elimina una multa en el BFF (Operación deshabilitada por negocio).
+     *
+     * @param id Identificador
+     */
     @Override
     public void delete(UUID id) {
         client.delete(id);
+    }
+
+    /**
+     * Registra el pago de una multa en el BFF.
+     *
+     * @param id Identificador de la multa
+     * @return Multa pagada y actualizada
+     */
+    @Override
+    public PenaltyResponse payPenalty(UUID id) {
+        return client.payPenalty(id);
     }
 }

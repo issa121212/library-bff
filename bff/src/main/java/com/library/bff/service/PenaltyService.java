@@ -12,4 +12,5 @@ public interface PenaltyService {
     List<PenaltyResponse> findAll();
     PenaltyResponse update(UUID id, PenaltyRequest request);
     void delete(UUID id);
+    PenaltyResponse payPenalty(UUID id);
 }

@@ -60,4 +60,11 @@ public class PenaltyClient {
             .retrieve()
             .toBodilessEntity();
     }
+
+    public PenaltyResponse payPenalty(UUID id) {
+        return restClient.post()
+            .uri(serviceUrl + "/api/penalty/" + id + "/pay")
+            .retrieve()
+            .body(PenaltyResponse.class);
+    }
 }

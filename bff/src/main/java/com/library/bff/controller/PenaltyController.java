@@ -44,4 +44,9 @@ public class PenaltyController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/pay")
+    public ResponseEntity<PenaltyResponse> payPenalty(@PathVariable UUID id) {
+        return ResponseEntity.ok(service.payPenalty(id));
+    }
 }
