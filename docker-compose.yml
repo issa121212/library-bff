@@ -117,6 +117,8 @@ services:
       JWK_SET_URI: http://ms-auth:8081/.well-known/jwks.json
       BOOK_SERVICE_URL: http://ms-book:8082
       AUTHOR_SERVICE_URL: http://ms-author:8083
+      AUTH_SERVICE_URL: http://ms-auth:8081
+
       LOAN_SERVICE_URL: http://ms-loan:8084
       PENALTY_SERVICE_URL: http://ms-penalty:8085
       INVENTORY_SERVICE_URL: http://ms-inventory:8086

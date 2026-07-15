@@ -12,6 +12,9 @@ services:
     url: ${BOOK_SERVICE_URL:http://localhost:8082}
   author:
     url: ${AUTHOR_SERVICE_URL:http://localhost:8083}
+  auth:
+    url: ${AUTH_SERVICE_URL:http://localhost:8081}
+
   loan:
     url: ${LOAN_SERVICE_URL:http://localhost:8084}
   penalty:
