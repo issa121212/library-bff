@@ -144,11 +144,11 @@ GET {{author}}/api/authors/1
 ### ══════════════════════════════════════════════════════════════════════════
 
 ### 20. Inventario - Listar copias físicas
-GET {{bff}}/api/library/book_copys
+GET {{bff}}/api/library/inventorys
 Authorization: Bearer {{token}}
 
 ### 21. Inventario - Registrar nueva copia de libro
-POST {{bff}}/api/library/book_copys
+POST {{bff}}/api/library/inventorys
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -202,11 +202,11 @@ Authorization: Bearer {{token}}
 }
 
 ### 28. Notificaciones - Listar historial de notificaciones
-GET {{bff}}/api/library/notification_historys
+GET {{bff}}/api/library/notifications
 Authorization: Bearer {{token}}
 
 ### 29. Notificaciones - Enviar alerta de correo
-POST {{bff}}/api/library/notification_historys
+POST {{bff}}/api/library/notifications
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
