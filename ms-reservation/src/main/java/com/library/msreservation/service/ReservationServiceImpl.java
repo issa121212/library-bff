@@ -27,6 +27,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationResponse create(ReservationRequest request) {
         log.info("Ejecutando método create");
+        boolean exists = repository.existsByBookIdAndUsernameAndStatus(request.bookId(), request.username(), "PENDING");
+        if (exists) {
+            log.warn("El usuario {} ya tiene una reserva pendiente para el libro {}", request.username(), request.bookId());
+            throw new RuntimeException("El usuario ya tiene una reserva activa para este libro.");
+        }
         Reservation entity = Reservation.builder()
             .id(UUID.randomUUID())
             .bookId(request.bookId())

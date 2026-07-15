@@ -159,6 +159,16 @@ status, res_resp = send_request("POST", "/api/library/reservations", {
 }, token)
 print(f"Status: {status} | Response: {res_resp}")
 
+# 13b. Create Duplicate Reservation
+if book_id:
+    print("\n[TEST 13b] Creating Duplicate Reservation (should fail with 500/400)...")
+    status, dup_resp = send_request("POST", "/api/library/reservations", {
+        "bookId": book_id,
+        "username": "admin"
+    }, token)
+    print(f"Status: {status} | Response: {dup_resp}")
+
+
 # 14. List Reservations
 print("\n[TEST 14] Listing Reservations...")
 status, resp = send_request("GET", "/api/library/reservations", token=token)
