@@ -88,15 +88,9 @@ Permite a los usuarios publicar opiniones y calificar libros de la biblioteca.
 ## ⚙️ Pasos para Iniciar el Sistema
 
 1. **Compilar los JARs de forma nativa en tu host**:
-   * **En Windows (PowerShell)**:
-     ```powershell
-     .\build_all.ps1
-     ```
-   * **En Linux / macOS (Terminal)**:
-     ```bash
-     chmod +x build_all.sh
-     ./build_all.sh
-     ```
+   ```powershell
+   python -c "import subprocess, os; [subprocess.run('.\gradlew.bat clean bootJar -x test', shell=True, cwd=os.path.join(os.getcwd(), s), check=True) for s in ['bff', 'ms-auth', 'ms-book', 'ms-author', 'ms-loan', 'ms-penalty', 'ms-inventory', 'ms-reservation', 'ms-notification', 'ms-review']]"
+   ```
 
 2. **Levantar los contenedores de Docker**:
    ```bash
