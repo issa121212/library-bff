@@ -137,3 +137,98 @@ GET {{book}}/api/books
 
 ### 19. Consultar autor directamente en ms-author
 GET {{author}}/api/authors/1
+
+
+### ══════════════════════════════════════════════════════════════════════════
+### NUEVOS SERVICIOS ESCALADOS — BFF :8080
+### ══════════════════════════════════════════════════════════════════════════
+
+### 20. Inventario - Listar copias físicas
+GET {{bff}}/api/library/book_copys
+Authorization: Bearer {{token}}
+
+### 21. Inventario - Registrar nueva copia de libro
+POST {{bff}}/api/library/book_copys
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "bookId": "a1b2c3d4-0001-0000-0000-000000000001",
+  "barcode": "BC-987654",
+  "physicalStatus": "NEW"
+}
+
+### 22. Préstamos - Listar todos los préstamos
+GET {{bff}}/api/library/loans
+Authorization: Bearer {{token}}
+
+### 23. Préstamos - Solicitar préstamo de libro
+POST {{bff}}/api/library/loans
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "bookCopyId": "a1b2c3d4-0001-0000-0000-000000000001",
+  "username": "admin"
+}
+
+### 24. Multas - Listar todas las multas
+GET {{bff}}/api/library/penaltys
+Authorization: Bearer {{token}}
+
+### 25. Multas - Registrar cobro de multa
+POST {{bff}}/api/library/penaltys
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "loanId": "a1b2c3d4-0001-0000-0000-000000000001",
+  "username": "admin",
+  "amount": 2500.0
+}
+
+### 26. Reservas - Listar todas las reservas
+GET {{bff}}/api/library/reservations
+Authorization: Bearer {{token}}
+
+### 27. Reservas - Solicitar reserva de libro
+POST {{bff}}/api/library/reservations
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "bookId": "a1b2c3d4-0001-0000-0000-000000000001",
+  "username": "admin"
+}
+
+### 28. Notificaciones - Listar historial de notificaciones
+GET {{bff}}/api/library/notification_historys
+Authorization: Bearer {{token}}
+
+### 29. Notificaciones - Enviar alerta de correo
+POST {{bff}}/api/library/notification_historys
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "recipient": "alumno@duoc.cl",
+  "messageType": "EMAIL",
+  "content": "Tu libro se encuentra próximo a vencer el día de mañana."
+}
+
+### 30. Reseñas - Listar todas las reseñas
+GET {{bff}}/api/library/reviews
+Authorization: Bearer {{token}}
+
+### 31. Reseñas - Agregar calificación de libro
+POST {{bff}}/api/library/reviews
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "bookId": "a1b2c3d4-0001-0000-0000-000000000001",
+  "username": "admin",
+  "rating": 5,
+  "comment": "Gran obra literaria, altamente recomendable."
+}
+
