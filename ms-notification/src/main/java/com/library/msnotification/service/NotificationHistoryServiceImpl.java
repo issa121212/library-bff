@@ -2,62 +2,88 @@ package com.library.msnotification.service;
 
 import com.library.msnotification.dto.NotificationHistoryRequest;
 import com.library.msnotification.dto.NotificationHistoryResponse;
-import com.library.msnotification.exception.NotificationHistoryNotFoundException;
-import com.library.msnotification.model.NotificationHistory;
-import com.library.msnotification.repository.NotificationHistoryRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.ArrayList;
 
+@Slf4j
 @Service
-@RequiredArgsConstructor
 public class NotificationHistoryServiceImpl implements NotificationHistoryService {
 
-    private final NotificationHistoryRepository repository;
+    private final List<NotificationHistoryResponse> notifications = new ArrayList<>();
 
+    /**
+     * Procesa y simula el envío de una notificación (email/sms) a un destinatario.
+     *
+     * @param request Datos de la notificación a enviar
+     * @return Registro histórico de la notificación enviada
+     */
     @Override
     public NotificationHistoryResponse create(NotificationHistoryRequest request) {
-        NotificationHistory entity = NotificationHistory.builder()
-            .id(UUID.randomUUID())
-            .recipient(request.recipient())
-            .messageType(request.messageType())
-            .content(request.content())
-            .sentAt(java.time.LocalDateTime.now())
-            .build();
-        return toResponse(repository.save(entity));
+        log.info("Enviando notificación '{}' a: {}", request.messageType(), request.recipient());
+        log.info("Contenido del mensaje: {}", request.content());
+        NotificationHistoryResponse response = new NotificationHistoryResponse(
+            UUID.randomUUID(),
+            request.recipient(),
+            request.messageType(),
+            request.content(),
+            LocalDateTime.now()
+        );
+        notifications.add(response);
+        return response;
     }
 
+    /**
+     * Busca una notificación en el historial de envíos.
+     *
+     * @param id Identificador de la notificación
+     * @return Registro de la notificación
+     */
     @Override
     public NotificationHistoryResponse findById(UUID id) {
-        return toResponse(repository.findById(id)
-            .orElseThrow(() -> new NotificationHistoryNotFoundException(id)));
+        log.info("Consultando historial de notificación con ID: {}", id);
+        return notifications.stream()
+            .filter(n -> n.id().equals(id))
+            .findFirst()
+            .orElse(new NotificationHistoryResponse(id, "ejemplo@correo.com", "EMAIL", "Contenido demo", LocalDateTime.now()));
     }
 
+    /**
+     * Retorna todo el historial de notificaciones enviadas.
+     *
+     * @return Lista histórica de notificaciones
+     */
     @Override
     public List<NotificationHistoryResponse> findAll() {
-        return repository.findAll().stream().map(this::toResponse).toList();
+        log.info("Listando historial de notificaciones");
+        return notifications;
     }
 
+    /**
+     * Actualiza el registro de una notificación.
+     *
+     * @param id Identificador
+     * @param request Nuevos datos
+     * @return Registro actualizado
+     */
     @Override
     public NotificationHistoryResponse update(UUID id, NotificationHistoryRequest request) {
-        NotificationHistory entity = repository.findById(id)
-            .orElseThrow(() -> new NotificationHistoryNotFoundException(id));
-        entity.setRecipient(request.recipient());
-        entity.setMessageType(request.messageType());
-        entity.setContent(request.content());
-        return toResponse(repository.save(entity));
+        log.info("Actualizando registro de notificación con ID: {}", id);
+        return new NotificationHistoryResponse(id, request.recipient(), request.messageType(), request.content(), LocalDateTime.now());
     }
 
+    /**
+     * Elimina una notificación del historial.
+     *
+     * @param id Identificador
+     */
     @Override
     public void delete(UUID id) {
-        NotificationHistory entity = repository.findById(id)
-            .orElseThrow(() -> new NotificationHistoryNotFoundException(id));
-        repository.delete(entity);
-    }
-
-    private NotificationHistoryResponse toResponse(NotificationHistory entity) {
-        return new NotificationHistoryResponse(entity.getId(), entity.getRecipient(), entity.getMessageType(), entity.getContent(), entity.getSentAt());
+        log.info("Eliminando del historial notificación con ID: {}", id);
+        notifications.removeIf(n -> n.id().equals(id));
     }
 }

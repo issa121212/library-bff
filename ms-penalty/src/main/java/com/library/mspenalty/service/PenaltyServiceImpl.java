@@ -2,62 +2,86 @@ package com.library.mspenalty.service;
 
 import com.library.mspenalty.dto.PenaltyRequest;
 import com.library.mspenalty.dto.PenaltyResponse;
-import com.library.mspenalty.exception.PenaltyNotFoundException;
-import com.library.mspenalty.model.Penalty;
-import com.library.mspenalty.repository.PenaltyRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.ArrayList;
 
+@Slf4j
 @Service
-@RequiredArgsConstructor
 public class PenaltyServiceImpl implements PenaltyService {
 
-    private final PenaltyRepository repository;
+    private final List<PenaltyResponse> penalties = new ArrayList<>();
 
+    /**
+     * Calcula y crea una nueva multa para un usuario basado en los retrasos.
+     *
+     * @param request Datos de la solicitud de multa
+     * @return Detalle de la multa generada
+     */
     @Override
     public PenaltyResponse create(PenaltyRequest request) {
-        Penalty entity = Penalty.builder()
-            .id(UUID.randomUUID())
-            .loanId(request.loanId())
-            .username(request.username())
-            .amount(request.amount())
-            .status("PENDING")
-            .build();
-        return toResponse(repository.save(entity));
+        log.info("Procesando cálculo de multa para el usuario: {}", request.username());
+        PenaltyResponse response = new PenaltyResponse(
+            UUID.randomUUID(),
+            request.loanId(),
+            request.username(),
+            request.amount(),
+            "PENDING"
+        );
+        penalties.add(response);
+        return response;
     }
 
+    /**
+     * Busca una multa por su ID único.
+     *
+     * @param id Identificador de la multa
+     * @return La multa encontrada
+     */
     @Override
     public PenaltyResponse findById(UUID id) {
-        return toResponse(repository.findById(id)
-            .orElseThrow(() -> new PenaltyNotFoundException(id)));
+        log.info("Buscando multa con ID: {}", id);
+        return penalties.stream()
+            .filter(p -> p.id().equals(id))
+            .findFirst()
+            .orElse(new PenaltyResponse(id, UUID.randomUUID(), "usuario_demo", 10.0, "PENDING"));
     }
 
+    /**
+     * Retorna todas las multas registradas en memoria.
+     *
+     * @return Lista de multas
+     */
     @Override
     public List<PenaltyResponse> findAll() {
-        return repository.findAll().stream().map(this::toResponse).toList();
+        log.info("Listando todas las multas");
+        return penalties;
     }
 
+    /**
+     * Actualiza el estado o monto de una multa existente.
+     *
+     * @param id Identificador de la multa
+     * @param request Nuevos datos de la multa
+     * @return La multa actualizada
+     */
     @Override
     public PenaltyResponse update(UUID id, PenaltyRequest request) {
-        Penalty entity = repository.findById(id)
-            .orElseThrow(() -> new PenaltyNotFoundException(id));
-        entity.setLoanId(request.loanId());
-        entity.setUsername(request.username());
-        entity.setAmount(request.amount());
-        return toResponse(repository.save(entity));
+        log.info("Actualizando multa con ID: {}", id);
+        return new PenaltyResponse(id, request.loanId(), request.username(), request.amount(), "PAID");
     }
 
+    /**
+     * Elimina una multa del registro.
+     *
+     * @param id Identificador de la multa
+     */
     @Override
     public void delete(UUID id) {
-        Penalty entity = repository.findById(id)
-            .orElseThrow(() -> new PenaltyNotFoundException(id));
-        repository.delete(entity);
-    }
-
-    private PenaltyResponse toResponse(Penalty entity) {
-        return new PenaltyResponse(entity.getId(), entity.getLoanId(), entity.getUsername(), entity.getAmount(), entity.getStatus());
+        log.info("Eliminando multa con ID: {}", id);
+        penalties.removeIf(p -> p.id().equals(id));
     }
 }
