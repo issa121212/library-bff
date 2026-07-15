@@ -1,49 +1,80 @@
-# Estrategia de Pruebas de Integración - Sistema de Biblioteca
+# Estrategia de Tests y Organización de Git - Sistema de Biblioteca
 
-Este documento detalla la estrategia de validación e integración automática implementada en el sistema mediante el script `run_client_tests.py`, actuando como el cliente principal del Backend for Frontend (BFF).
-
----
-
-## 🔬 Estrategia de Pruebas de Integración y Simulación
-
-Debido a que el BFF actúa como la cara de nuestro cliente back-end (Back-for-Frontend) y centraliza toda interacción lógica y de seguridad, la suite de tests se realiza de extremo a extremo (E2E) simulando solicitudes REST directamente al puerto `8080` (BFF) con tokens de autorización dinámicos firmados por `ms-auth`.
+Este documento detalla la arquitectura de pruebas, los tipos de tests unitarios y de integración con H2 implementados en el proyecto, y la estrategia de control de versiones utilizada.
 
 ---
 
-## 🛠️ Ejecución de la Suite de Pruebas
+## 1. Unit Test de Controller
+* **Archivo Ejemplo**: `LibraryControllerTest.java` (en [LibraryControllerTest.java](file:///c:/Users/admn/Downloads/library/bff/src/test/java/com/library/bff/controller/LibraryControllerTest.java))
+* **Objetivo**:
+  * Validar que los endpoints del controlador armen correctamente los objetos de respuesta `ResponseEntity` y devuelvan los códigos HTTP correspondientes (`200 OK`, `201 Created`, `204 No Content`, `404 Not Found`).
+  * Aislar por completo la capa web/REST de la lógica de negocio simulando los servicios mediante mocks.
+* **Puntos Clave**:
+  * Se instancia el controlador de forma manual y directa en cada método de prueba (`new LibraryController(...)`), evitando reflection mágica.
+  * Se configuran las respuestas de las dependencias (`BookService`, `AuthorService`) usando Mockito.
+  * Se ejecutan los asserts clásicos de JUnit 5 para validar el cuerpo y estado de los objetos `ResponseEntity` resultantes.
 
-El script automático de integración en Python se ejecuta desde la raíz de la siguiente manera:
+---
 
+## 2. Unit Test de Service
+* **Archivo Ejemplo**: `AuthorServiceImplTest.java` (en [AuthorServiceImplTest.java](file:///c:/Users/admn/Downloads/library/bff/src/test/java/com/library/bff/service/AuthorServiceImplTest.java)) o `BookServiceImplTest.java` (BFF)
+* **Objetivo**:
+  * Verificar de forma estricta las reglas lógicas del negocio (ej. validación previa de existencia del autor al crear un libro en el BFF).
+  * Validar la tolerancia a fallos del BFF (resiliencia), comprobando que si el microservicio de autores falla, el servicio intercepte la excepción y devuelva el libro con el autor en `null` en lugar de lanzar un error 500.
+* **Puntos Clave**:
+  * Son pruebas unitarias puras, sin levantar el contexto de Spring (máxima velocidad).
+  * Se utiliza Mockito para simular los clientes HTTP (`AuthorClient`, `BookClient`).
+  * Se utiliza `assertThrows` para validar que se lancen y propaguen correctamente las excepciones de negocio correspondientes (como entidades no encontradas).
+
+---
+
+## 3. Unit Test de DTOs y Validación (Equivalente a Utils)
+* **Archivo Ejemplo**: `BffDtoTest.java` (en [BffDtoTest.java](file:///c:/Users/admn/Downloads/library/bff/src/test/java/com/library/bff/dto/BffDtoTest.java)) o `BookDtoTest.java`
+* **Objetivo**:
+  * Asegurar que las validaciones declarativas de Jakarta en los Java Records (como `@NotBlank` o `@NotNull`) se apliquen correctamente y detengan las solicitudes inválidas.
+* **Puntos Clave**:
+  * Se instancia manualmente el motor de validación `jakarta.validation.Validator`.
+  * Se construyen Records con atributos inválidos (ej. títulos vacíos o años nulos) y se verifica con asserts que el set de violaciones (`Set<ConstraintViolation>`) no esté vacío.
+
+---
+
+## 4. Test de Repository con H2
+* **Archivo Ejemplo**: `BookRepositoryTest.java` (en [BookRepositoryTest.java](file:///c:/Users/admn/Downloads/library/ms-book/src/test/java/com/library/book/repository/BookRepositoryTest.java))
+* **Objetivo**:
+  * Validar el comportamiento de las consultas personalizadas de base de datos JPA (como las búsquedas case-insensitive y búsquedas parciales de libros).
+* **Puntos Clave**:
+  * Se levanta el contexto parcial de Spring mediante `@SpringBootTest`.
+  * Se utiliza la base de datos en memoria **H2** configurada a través del perfil `test` (que se activa automáticamente en pruebas).
+  * Flyway ejecuta las migraciones DDL iniciales (`V1__...sql`) en la base de datos H2 al arrancar el test, asegurando que el esquema de base de datos esté perfectamente sincronizado con el modelo.
+
+---
+
+## 5. Herramienta para Correr Tests
+Para ejecutar toda la suite de pruebas unitarias y de integración de todo el proyecto, ejecuta desde la raíz del mismo el siguiente comando en la terminal:
 ```bash
-python run_client_tests.py
+./gradlew test
+```
+*Si quieres correr pruebas solo sobre un microservicio específico, ingresa a su respectiva carpeta y ejecuta el mismo comando.*
+
+---
+
+## 6. Cobertura de Código (JaCoCo)
+El proyecto cuenta con el plugin de cobertura **JaCoCo** configurado en todos los módulos. Al finalizar la ejecución de las pruebas, se generan reportes detallados automáticamente ejecutando:
+```bash
+./gradlew test jacocoTestReport
 ```
 
-*Nota: Asegúrate de que todos los contenedores de Docker estén activos (`docker compose ps`) antes de ejecutar el script.*
+### Ubicación de los Reportes:
+* **Reporte HTML (Visualizable en navegador)**:
+  * BFF: `bff/build/reports/jacoco/test/html/index.html`
+  * ms-auth: `ms-auth/build/reports/jacoco/test/html/index.html`
+  * ms-book: `ms-book/build/reports/jacoco/test/html/index.html`
+  * ms-author: `ms-author/build/reports/jacoco/test/html/index.html`
+* **Reporte XML (Para herramientas de integración)**:
+  * BFF: `bff/build/reports/jacoco/test/jacocoTestReport.xml`
 
 ---
 
-## 📝 Detalle de los 18 Casos de Prueba Incluidos
-
-El script `run_client_tests.py` ejecuta y verifica secuencialmente las siguientes operaciones críticas:
-
-1. **[TEST 1] Registro de Usuario**: Envía las credenciales al BFF (`/api/auth/register`) para registrar un nuevo usuario (retorna `403` si ya existe, lo cual es normal).
-2. **[TEST 2] Inicio de Sesión (Login)**: Envía credenciales a `/api/auth/login` para obtener un Token Bearer JWT de acceso válido.
-3. **[TEST 3] Creación de Autor**: Registra un nuevo autor literario.
-4. **[TEST 4] Listado de Autores**: Comprueba la persistencia recuperando la lista de autores disponibles.
-5. **[TEST 5] Creación de Libro**: Registra un libro utilizando un ISBN aleatorio y lo vincula al autor creado en el paso 3. El `stock` inicial devuelto es `0`.
-6. **[TEST 6] Listado de Libros**: Comprueba la visualización y composición del libro con su autor.
-7. **[TEST 7] Registro en Inventario (Copia Física)**: Crea una copia física asociada al libro con código de barras único.
-8. **[TEST 8] Listado de Copias**: Verifica la existencia de copias físicas creadas y su estado (`isAvailable: true`).
-9. **[TEST 9] Solicitud de Préstamo**: Crea un préstamo activo asociando la copia física. Se calcula automáticamente el vencimiento a **14 días en el futuro** y `returnDate` se inicia en `null`.
-10. **[TEST 10] Listado de Préstamos**: Recupera el listado de préstamos activos e históricos.
-11. **[TEST 10b] Registro de Devolución**: Procesa el retorno del libro mediante `POST /loans/{id}/return`. Se verifica que el estado cambie a `"RETURNED"` y `returnDate` se configure con el tiempo exacto actual.
-12. **[TEST 11] Creación de Multa**: Calcula una multa para el préstamo actual y la registra en el servicio in-memory `ms-penalty`.
-13. **[TEST 12] Listado de Multas**: Recupera el listado temporal de multas registradas.
-14. **[TEST 12b] Pago de Multa**: Ejecuta el pago mediante `POST /penaltys/{id}/pay` y comprueba que el estado de la multa cambie a `"PAID"`.
-15. **[TEST 13] Registro de Reserva**: Crea una reserva activa para un libro específico.
-16. **[TEST 13b] Bloqueo de Reserva Duplicada**: Intenta registrar otra reserva para el mismo libro por el mismo usuario. Comprueba que el microservicio bloquee el duplicado y retorne un error: `"El usuario ya tiene una reserva activa para este libro."`
-17. **[TEST 14] Listado de Reservas**: Comprueba la cola de espera de reservas pendientes.
-18. **[TEST 15] Envío de Alertas (Notificación)**: Envía una alerta de correo mediante el servicio in-memory `ms-notification`.
-19. **[TEST 16] Historial de Notificaciones**: Lista el historial en memoria de las alertas enviadas.
-20. **[TEST 17] Registro de Reseña**: Añade comentarios y una puntuación de 1 a 5 estrellas al libro.
-21. **[TEST 18] Listado de Reseñas**: Recupera y despliega las opiniones de los usuarios sobre el catálogo de libros.
+## 7. Estrategia de Control de Versiones en Git
+* **Rama `main`**: Contiene el código fuente estable de producción que compila y se ejecuta en contenedores Docker de forma garantizada.
+* **Ramas de funcionalidad (`feature/...`)**: Utilizadas para el desarrollo aislado de tareas independientes (ej. `feature/update-author-bff`, `feature/testing-manual-instantiation`). Una vez verificadas de manera local por el equipo, se mezclan a `main` a través de solicitudes de pull request (PR).
