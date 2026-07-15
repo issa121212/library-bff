@@ -44,4 +44,9 @@ public class LoanController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/return")
+    public ResponseEntity<LoanResponse> returnLoan(@PathVariable UUID id) {
+        return ResponseEntity.ok(service.returnLoan(id));
+    }
 }

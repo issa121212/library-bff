@@ -12,4 +12,5 @@ public interface LoanService {
     List<LoanResponse> findAll();
     LoanResponse update(UUID id, LoanRequest request);
     void delete(UUID id);
+    LoanResponse returnLoan(UUID id);
 }

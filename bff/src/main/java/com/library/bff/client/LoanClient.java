@@ -60,4 +60,11 @@ public class LoanClient {
             .retrieve()
             .toBodilessEntity();
     }
+
+    public LoanResponse returnLoan(UUID id) {
+        return restClient.post()
+            .uri(serviceUrl + "/api/loan/" + id + "/return")
+            .retrieve()
+            .body(LoanResponse.class);
+    }
 }

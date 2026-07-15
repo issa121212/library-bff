@@ -67,4 +67,16 @@ public class LoanServiceImpl implements LoanService {
         log.info("Ejecutando método delete");
         client.delete(id);
     }
+
+    /**
+     * Registra la devolución de un libro a través del BFF.
+     *
+     * @param id Identificador único del préstamo
+     * @return El préstamo devuelto y actualizado
+     */
+    @Override
+    public LoanResponse returnLoan(UUID id) {
+        log.info("Ejecutando método returnLoan");
+        return client.returnLoan(id);
+    }
 }

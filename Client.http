@@ -172,6 +172,10 @@ Authorization: Bearer {{token}}
   "username": "admin"
 }
 
+### 23b. Préstamos - Registrar devolución de libro
+POST {{bff}}/api/library/loans/d2883a66-66af-4ee7-9559-f7806e6d5721/return
+Authorization: Bearer {{token}}
+
 ### 24. Multas - Listar todas las multas
 GET {{bff}}/api/library/penaltys
 Authorization: Bearer {{token}}

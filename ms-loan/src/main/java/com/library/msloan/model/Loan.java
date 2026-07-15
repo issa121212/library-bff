@@ -28,7 +28,7 @@ public class Loan {
     @Column(name = "due_date", nullable = false)
     private java.time.LocalDateTime dueDate;
 
-    @Column(name = "return_date", nullable = false)
+    @Column(name = "return_date", nullable = true)
     private java.time.LocalDateTime returnDate;
 
     @Column(name = "status", nullable = false)

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.library.bff.client.AuthorClient;
 import com.library.bff.client.BookClient;
+import com.library.bff.client.BookCopyClient;
 import com.library.bff.dto.AuthorResponse;
 import com.library.bff.dto.BookRequest;
 import com.library.bff.dto.BookResponse;
@@ -19,8 +20,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
-    private final BookClient   bookClient;
-    private final AuthorClient authorClient;
+    private final BookClient     bookClient;
+    private final AuthorClient   authorClient;
+    private final BookCopyClient bookCopyClient;
     /**
      * Retorna la lista completa de todos los registros.
      */
@@ -84,7 +86,15 @@ public class BookServiceImpl implements BookService {
                 // para no romper la respuesta completa de los libros y mantener la independencia.
             }
         }
-        return new BookWithAuthorResponse(book.id(), book.title(), book.category(), book.isbn(), author);
+        int stock = 0;
+        try {
+            stock = (int) bookCopyClient.findAll().stream()
+                .filter(copy -> copy.bookId().equals(book.id()))
+                .count();
+        } catch (Exception e) {
+            log.warn("No se pudo obtener el stock del libro {} desde ms-inventory", book.id());
+        }
+        return new BookWithAuthorResponse(book.id(), book.title(), book.category(), book.isbn(), author, stock);
     }
 }
 

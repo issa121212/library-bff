@@ -81,7 +81,7 @@ public class PenaltyServiceImpl implements PenaltyService {
      */
     @Override
     public void delete(UUID id) {
-        log.info("Eliminando multa con ID: {}", id);
-        penalties.removeIf(p -> p.id().equals(id));
+        log.warn("Intento de eliminar multa con ID: {} - Operación no permitida", id);
+        throw new RuntimeException("No está permitido eliminar multas del sistema.");
     }
 }

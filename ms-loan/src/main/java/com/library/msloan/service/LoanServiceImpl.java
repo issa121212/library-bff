@@ -32,8 +32,8 @@ public class LoanServiceImpl implements LoanService {
             .bookCopyId(request.bookCopyId())
             .username(request.username())
             .loanDate(java.time.LocalDateTime.now())
-            .dueDate(java.time.LocalDateTime.now())
-            .returnDate(java.time.LocalDateTime.now())
+            .dueDate(java.time.LocalDateTime.now().plusDays(14))
+            .returnDate(null)
             .status("ACTIVE")
             .build();
         return toResponse(repository.save(entity));
@@ -84,6 +84,22 @@ public class LoanServiceImpl implements LoanService {
         Loan entity = repository.findById(id)
             .orElseThrow(() -> new LoanNotFoundException(id));
         repository.delete(entity);
+    }
+
+    /**
+     * Procesa la devolución de un libro, marcando el préstamo como RETURNED.
+     *
+     * @param id Identificador único del préstamo
+     * @return El préstamo devuelto y actualizado
+     */
+    @Override
+    public LoanResponse returnLoan(UUID id) {
+        log.info("Procesando devolución para préstamo con ID: {}", id);
+        Loan entity = repository.findById(id)
+            .orElseThrow(() -> new LoanNotFoundException(id));
+        entity.setStatus("RETURNED");
+        entity.setReturnDate(java.time.LocalDateTime.now());
+        return toResponse(repository.save(entity));
     }
 
     private LoanResponse toResponse(Loan entity) {

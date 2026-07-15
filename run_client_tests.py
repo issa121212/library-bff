@@ -122,6 +122,13 @@ print("\n[TEST 10] Listing Loans...")
 status, resp = send_request("GET", "/api/library/loans", token=token)
 print(f"Status: {status} | Response: {resp}")
 
+# 10b. Return Loan
+if loan_id:
+    print(f"\n[TEST 10b] Returning Loan {loan_id}...")
+    status, return_resp = send_request("POST", f"/api/library/loans/{loan_id}/return", None, token)
+    print(f"Status: {status} | Response: {return_resp}")
+
+
 # 11. Create Penalty (Stateless calculation)
 print("\n[TEST 11] Creating Penalty (ms-penalty)...")
 status, penalty_resp = send_request("POST", "/api/library/penaltys", {

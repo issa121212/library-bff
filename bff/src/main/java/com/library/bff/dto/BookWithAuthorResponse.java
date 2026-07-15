@@ -7,5 +7,6 @@ public record BookWithAuthorResponse(
     String title,
     String category,
     String isbn,
-    AuthorResponse author
+    AuthorResponse author,
+    Integer stock
 ) {}
